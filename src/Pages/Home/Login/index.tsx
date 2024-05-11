@@ -10,7 +10,7 @@ export default function () {
         }
     });
 
-    const submit = async (data: typeof form.values) => {
+    const submit = async (_data: typeof form.values) => {
 
     }
 
