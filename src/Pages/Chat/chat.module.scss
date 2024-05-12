@@ -10,10 +10,11 @@
 
         .messageList {
             @apply flex flex-col gap-y-3 p-3 overflow-y-auto overflow-x-hidden;
+            height: calc(100% - 2.5rem - 3.5rem);
         }
 
         .typeArea {
-            @apply h-20 border-t border-gray-200 flex justify-between items-center gap-x-1 p-2;
+            @apply h-14 border-t border-gray-200 flex justify-between items-center gap-x-1 p-2;
         }
 
         .message {

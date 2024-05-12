@@ -83,7 +83,6 @@ export default function () {
                 </div>
                 <div
                     ref={messageListRef as MutableRefObject<HTMLDivElement>}
-                    style={{ height: "calc(100% - 2.5rem - 5rem)" }}
                     className={styles.messageList}
                 >
                     {messages.length === 0 ?
