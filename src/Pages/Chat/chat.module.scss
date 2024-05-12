@@ -1,0 +1,69 @@
+.chat {
+    @apply flex justify-center items-center w-screen h-screen;
+
+    .chatBox {
+        @apply w-[50vw] h-[65vh] bg-white rounded-sm shadow-md flex flex-col;
+
+        .connectedUsers {
+            @apply border-b border-gray-200 px-3 mb-auto h-10 flex justify-start items-center;
+        }
+
+        .messageList {
+            @apply flex flex-col gap-y-3 p-3 overflow-y-auto overflow-x-hidden;
+        }
+
+        .typeArea {
+            @apply h-20 border-t border-gray-200 flex justify-between items-center gap-x-1 p-2;
+        }
+
+        .message {
+            @apply relative p-2 flex flex-col max-w-60 bg-gray-50 border border-gray-200 shadow-sm rounded-sm min-w-32;
+
+            &::before {
+                content: " ";
+                @apply absolute -left-[5px] bottom-2 rounded-l-full;
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-right: 5px solid rgb(229 231 235);
+            }
+
+            &:not(.mine) {
+                @apply mr-auto;
+            }
+
+            .username {
+                @apply text-sm text-black/70 font-semibold;
+            }
+
+            .msg {
+                @apply text-black/60;
+            }
+
+            &.mine {
+                @apply ml-auto;
+
+                &::before {
+                    content: " ";
+                    @apply absolute -right-[5px] bottom-2 rounded-l-full;
+                    left: unset;
+                    width: 0;
+                    height: 0;
+                    border-top: 5px solid transparent;
+                    border-bottom: 5px solid transparent;
+                    border-left: 5px solid rgb(229 231 235);
+                    border-right-width: 0px;
+                }
+
+            }
+
+            .time {
+                @apply mt-2 ml-auto text-xs text-black/30;
+            }
+
+        }
+
+    }
+
+}

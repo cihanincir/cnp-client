@@ -1,7 +1,35 @@
-import { Button, TextInput } from "@mantine/core";
+import ArrayColumItems from "@/Components/ArrayColumItems";
+import useFetch from "@/Hooks/Fetch";
+import { IFetchMethod } from "@/Hooks/Fetch/types";
+import { Button, LoadingOverlay, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { ILoginSuccess } from "./types";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/Store/Reducers/User";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { refetch, loading } = useFetch<ILoginSuccess>({
+        endpoint: "users/login",
+        method: IFetchMethod.Post,
+        effectsFetch: false,
+        onError(error: any) {
+            if (Array.isArray(error)) {
+                notifications.show({ message: <ArrayColumItems items={error} />, color: "red" });
+            } else {
+                notifications.show({ message: error, color: "red" });
+            }
+        },
+        onComplete({ token, userId }) {
+            dispatch(setUser({ token, username: form.values.username, userId }));
+            navigate("/chat");
+        }
+    });
 
     const form = useForm({
         initialValues: {
@@ -10,12 +38,13 @@ export default function () {
         }
     });
 
-    const submit = async (_data: typeof form.values) => {
-
+    const submit = async (data: typeof form.values) => {
+        refetch(data);
     }
 
     return (
-        <form onSubmit={form.onSubmit(submit)}>
+        <form onSubmit={form.onSubmit(submit)} className={"relative"}>
+            <LoadingOverlay visible={loading} />
             <TextInput
                 label={"Username"}
                 withAsterisk
